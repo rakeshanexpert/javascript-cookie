@@ -1,0 +1,64 @@
+<!doctype html> 
+<html> 
+<head> 
+<meta charset="utf-8"> 
+<title>Untitled Document</title> 
+</head> 
+<style> 
+#changeDivcolor{ height:200px; width:200px; background:#ccc} 
+</style> 
+<body> 
+
+<div class="seclectdataform"> 
+    <select id="selectType" onChange="selectColor();"> 
+        <option value="select color">Select color</option> 
+        <option value="red">Red</option> 
+        <option value="green">Green</option> 
+        <option value="blue">Blue</option> 
+        <option value="yellow">Yellow</option> 
+    </select> 
+    <div id="changeDivcolor">hello</div> 
+</div> 
+
+<script> 
+var changedivColor = document.getElementById("changeDivcolor"); 
+window.onload = function(){ 
+	if(document.cookie.length != 0){ 
+		var nameValueArray = document.cookie.split("=") ; 
+		console.log(nameValueArray[1]) 
+		changedivColor.style.backgroundColor = getCookie('color'); 
+	} 
+} 
+
+
+function selectColor(){ 
+	var selectColor = document.getElementById("selectType").value; 
+	if(selectColor != 'select color'){ 
+		changedivColor.style.backgroundColor = selectColor; 
+		setCookie('color', selectColor, 1) 
+	} 
+
+} 
+
+function setCookie(name,value,days) { 
+	var expires = ""; 
+	if (days) { 
+		var date = new Date(); 
+		date.setTime(date.getTime() + (days*24*60*60*1000)); 
+		expires = "; expires=" + date.toUTCString(); 
+	} 
+	document.cookie = name + "=" + (value || "") + expires + "; path=/"; 
+} 
+
+function getCookie(name) { 
+	var value = "; " + document.cookie; 
+	var parts = value.split("; " + name + "="); 
+	if (parts.length == 2) return parts.pop().split(";").shift(); 
+} 
+
+</script> 
+
+</body> 
+</html> 
+
+
